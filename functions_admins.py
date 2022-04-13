@@ -90,13 +90,26 @@ def select_course():
         e = e+1
     select = int(input("---->"))
     if select > len(courses):
-        print("El curso seleccionada no existe")
+        print("El curso seleccionado no existe.")
         select_course()
     else:
         return courses[select-1][0]
+
+    
+            
 def mod_data():
     course = select_course()
-    
-
-print(careers)
-print(courses)
+    print("1. Nombre de curso\n2. creditos\n3. fecha de inicio\n4. fecha de finalizacion\n5. Horario\n6.carrera asociada")
+    opselect = int(input("Ingrese la opcion que desea: "))
+    if opselect == 1:
+        print()
+    elif opselect == 2:
+        print()
+    elif opselect == 3:
+        print()
+    elif opselect == 4:
+        print()
+    elif opselect == 5:
+        print()
+    elif opselect == 6:
+        print()
