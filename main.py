@@ -25,7 +25,7 @@ def menu_admins():
     if (opselect == 1):
         functions_admins.add_courses
     elif (opselect == 2):
-        print()
+        functions_admins.mod_courses
     elif (opselect == 3):
         functions_admins.add_careers
     elif (opselect == 4):
