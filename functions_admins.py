@@ -102,7 +102,8 @@ def mod_data():
     print("1. Nombre de curso\n2. creditos\n3. fecha de inicio\n4. fecha de finalizacion\n5. Horario\n6.carrera asociada")
     opselect = int(input("Ingrese la opcion que desea: "))
     if opselect == 1:
-        print()
+        mod_nameCourse(course)
+            
     elif opselect == 2:
         print()
     elif opselect == 3:
@@ -113,3 +114,8 @@ def mod_data():
         print()
     elif opselect == 6:
         print()
+def mod_nameCourse(course):
+    new_name = input("Ingrese el nuevo nombre del curso: ")
+    for i in courses:
+        
+        
