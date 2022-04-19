@@ -117,5 +117,7 @@ def mod_data():
 def mod_nameCourse(course):
     new_name = input("Ingrese el nuevo nombre del curso: ")
     for i in courses:
+        if course in i:
+            i[0] = new_name
         
         
