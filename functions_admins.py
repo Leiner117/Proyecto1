@@ -45,6 +45,7 @@ def add_courses():
         courses = tuple(courses)
     else:
         print("No se pueden registrar cursos si no existen carreras.")
+        
 
 
 
