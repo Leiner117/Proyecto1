@@ -58,27 +58,29 @@ def add_careers():
 
 def select_career():
     global careers
-    print("Seleccione la carrera que desea:")
-    a = 1
-    for i in careers:
-        print(str(a)+"-"+i)
-        a = a+1
-    select = int(input("---->"))
-    if select > len(careers):
-        print("La carrera seleccionada no existe")
-        select_career()
-    else:
-        return careers[select-1]
-def mod_courses():
-    global courses
-    courses = list(courses)
-    
-    print("1. Modificar datos\n2. Eliminar curso")
-    opselect = int(input("---> "))
-    if opselect ==1:
-        mod_data()
-    elif opselect == 2:
-        print()
+    careers_list = []
+    b = 0
+    while b == 0:
+        print("Seleccione las carrera que desea:")
+        a = 1
+        for i in careers:
+            print(str(a)+"-"+i)
+            a = a+1
+        select = int(input("---->"))
+        if select > len(careers):
+            print("La carrera seleccionada no existe")
+            select_career()
+        else:
+            careers_list.append(careers[select-1])
+            print("Desea asociar mas carreras a este curso?:")
+            print("1. Si\n2. No")
+            opselect = int(input("---> "))
+            if opselect == 2:
+                b = 1
+                return careers_list
+
+
+
 def select_course():
     global courses
     
@@ -94,31 +96,91 @@ def select_course():
         print("El curso seleccionado no existe.")
         select_course()
     else:
-        return courses[select-1][0]
-
-    
-            
-def mod_data():
+        return (select-1)
+def select_position_careers():
+    global careers
+    print("Seleccione la carrera que desea que desea:")
+    a = 1
+    for i in careers:
+        print(str(a)+"-"+i)
+        a = a+1
+    select = int(input("---->"))
+    if select > len(careers):
+        print("El curso seleccionado no existe.")
+        select_position_careers()
+    else:
+        return (select-1)
+select_position_careers()
+def mod_courses():
     course = select_course()
-    print("1. Nombre de curso\n2. creditos\n3. fecha de inicio\n4. fecha de finalizacion\n5. Horario\n6.carrera asociada")
-    opselect = int(input("Ingrese la opcion que desea: "))
-    if opselect == 1:
-        mod_nameCourse(course)
-            
-    elif opselect == 2:
-        print()
-    elif opselect == 3:
-        print()
-    elif opselect == 4:
-        print()
-    elif opselect == 5:
-        print()
-    elif opselect == 6:
-        print()
+    while True:
+        print("1. Nombre de curso\n2. creditos\n3. fecha de inicio\n4. fecha de finalizacion\n5. Horario\n6.carreras asociadas\n7.Salir")
+        opselect = int(input("Ingrese la opcion que desea: "))
+        if opselect == 1:
+            mod_nameCourse(course)
+                
+        elif opselect == 2:
+            mod_credits(course)
+        elif opselect == 3:
+            mod_start_date(course)
+        elif opselect == 4:
+            mod_end_date(course)
+        elif opselect == 5:
+            mod_class_times(course)
+        elif opselect == 6:
+            mod_careers(course)
+        elif opselect == 7:
+            break
 def mod_nameCourse(course):
+    global courses
     new_name = input("Ingrese el nuevo nombre del curso: ")
-    for i in courses:
-        if course in i:
-            i[0] = new_name
-        
-        
+    courses = list(courses)
+    courses[course][0] = new_name
+    courses = tuple(courses)
+def mod_credits(course):
+    global courses
+    courses = list(courses)
+    new_credits = int(input("Ingrese la nueva cantidad de creditos: "))
+    new_school_hours = new_credits*3
+    courses[course][1] = new_credits
+    courses[course][2] = new_school_hours
+    courses = tuple(courses)
+def mod_start_date(course):
+    global courses
+    courses = list(courses)
+    start_date = input("fecha de inicio del curso'aaaa/mm/dd': ")
+    try:
+        start_date = datetime.strptime(start_date, '%Y/%m/%d').strftime('%Y/%m/%d')
+        courses[course][3] = start_date
+        courses = tuple(courses)
+    except ValueError:
+        print("\n No ha ingresado una fecha correcta...")
+        mod_courses()
+    
+def mod_end_date(course):
+    global courses
+    courses = list(courses)
+    end_date = input("fecha de finalización del curso'aaaa/mm/dd': ") 
+    try:
+        end_date = datetime.strptime(end_date, '%Y/%m/%d').strftime('%Y/%m/%d')
+    except ValueError:
+        print("\n No ha ingresado una fecha correcta...")
+        mod_courses()
+    courses[course][4] = end_date
+    courses = tuple(courses)
+def mod_class_times(course):
+    global courses
+    courses = list(courses)
+    new_class_times = input("Ingrese su nuevo horario: ")
+    courses[course][5] = new_class_times
+    courses = tuple(courses)
+def mod_careers(course):
+    global courses
+    courses = list(courses)
+    new_careers = select_career()
+    courses[course][6] = new_careers
+    courses = tuple(courses)
+def mod_careers():
+    career = select_position_careers
+    new_careers = input("Ingrese el nuevo nombre de la carrera: ")
+    careers[career] = new_careers
