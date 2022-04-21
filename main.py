@@ -1,6 +1,5 @@
 import functions_admins
-import registro
-
+import functions_students
 def login():
     while True:
         print("1. Login\n2. Registro\n3. salir")
@@ -11,7 +10,7 @@ def login():
             register()
         elif (opselect == 3):
             break
-            
+ 
 def register():
     print("Desea registrarse como: \n1. Administrativo\n2. Estudiante")
     opselect = int(input("--->"))
@@ -19,7 +18,7 @@ def register():
         functions_admins.add_admins()
         login()
     elif (opselect == 2):
-        registro.register()
+        functions_students.register()
 def menu_admins():
     while True:
         print("Menú de administradores")
@@ -51,4 +50,3 @@ def menu_students():
             functions_admins.add_careers()
         elif (opselect == 4):
             print()
-menu_admins()
