@@ -5,8 +5,10 @@ careers = tuple()
 def add_admins():
     aux_list = []
     name = input("Ingrese su nombre completo: ")
+    password = input("Ingrese una contraseña: ")
     phone_number = int(input("Ingrese su numero de telefono: "))
     aux_list.append(name)
+    aux_list.append(password)
     aux_list.append(phone_number)
     admins.append(aux_list)
     
@@ -110,7 +112,7 @@ def select_position_careers():
         select_position_careers()
     else:
         return (select-1)
-select_position_careers()
+
 def mod_courses():
     course = select_course()
     while True:
