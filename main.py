@@ -32,7 +32,11 @@ def menu_admins():
         elif (opselect == 3):
             functions_admins.add_careers()
         elif (opselect == 4):
-            print()
+            functions_admins.mod_careers()
+        elif (opselect == 5):
+            print(functions_admins.courses)
+            print(functions_admins.careers)
+            print(functions_admins.admins)
         
 def menu_students():
     while True:
@@ -47,4 +51,4 @@ def menu_students():
             functions_admins.add_careers()
         elif (opselect == 4):
             print()
-register()
+menu_admins()
