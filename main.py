@@ -76,7 +76,7 @@ def menu_students(name):
     
     while True:
         print("Menú de estudiantes")
-        print("1.Cambiar Carrera\n2.Matricular cursos\n3.agregar actividades\n4.Salir")
+        print("1.Cambiar Carrera\n2.Matricular cursos\n3.agregar actividades\n4.modificar estado de un curso\n5.Salir")
         opselect = int(input("Ingrese la opcion que desea: "))
         if (opselect == 1):
             functions_students.mod_careers(name)
@@ -85,7 +85,7 @@ def menu_students(name):
         elif (opselect == 3):
             print()
         elif (opselect == 4):
-            break
+            functions_students.mod_course_status(name)
 login()
 
     

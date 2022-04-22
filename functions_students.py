@@ -1,5 +1,5 @@
 import functions_admins
-students = []
+students = [["leiner","","inge","12345",[{'curso':'mate','estado':'En curso'},{'curso':'progra','estado':'En curso'}]]]
 def register (): 
     auxlist = []
     courses = []
@@ -42,7 +42,38 @@ def assign_course(name):
     aux_dic["estado"] = "En curso"
     students[index][4].append(aux_dic)
     print(students)
-
+def index_student(name):
+    for i in students:
+        if name in i:
+            index = students.index(i)
+    return index
+def mod_course_status(name):
+    index = index_student(name)
+    status = ""
+    course = select_course_assign(index)
+    print("1.Aprobado\n2.Reprobado\n3.En curso")
+    num_status = int(input("Ingrese el estado del curso: "))
+    if num_status == 1:
+        status = "Aprobado"
+    elif num_status == 2:
+        status = "Reprobado"
+    elif num_status == 3:
+        status = "En curso"
+    else:
+        print("Ingrese solo las opciones indicadas!.")
+    students[index][4][course]["estado"] = status
+    
+def select_course_assign(index):
+    e = 0
+    
+    for i in students[index][4]:
+        e = e+1
+        print(str(e)+"-"+i['curso'])
+    course = int(input("Seleccione el curso que desea: "))
+    #course = students[index][4][course-1]
+    
+    return (course-1)
+mod_course_status("leiner")
 
             
                 
