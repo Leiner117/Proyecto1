@@ -1,5 +1,5 @@
 import functions_admins
-students = [["leiner","","inge","",[]]]
+students = []
 def register (): 
     auxlist = []
     courses = []
@@ -25,6 +25,7 @@ def mod_careers(name):
             
 def assign_course(name):
     career = ""
+    aux_dic = {}
     b = 0
     for i in students:
         if name in i:
@@ -37,8 +38,11 @@ def assign_course(name):
             b = b+1
             print(str(b)+"-"+a[0])
     select = int(input("---> "))
-    students[index][4].append(functions_admins.courses[select-1][0])
+    aux_dic["curso"] = functions_admins.courses[select-1][0]
+    aux_dic["estado"] = "En curso"
+    students[index][4].append(aux_dic)
     print(students)
+
 
             
                 

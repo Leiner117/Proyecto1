@@ -1,9 +1,11 @@
 from datetime import datetime,time
-admins = []
+admins = [["admin","12345",123]]
 courses = (["progra",3,9,"2022/02/02","2022/03/03","martes",["inge"]],["progra",3,9,"2022/02/02","2022/03/03","martes",["fisica"]],["mate",3,9,"2022/02/02","2022/03/03","martes",["fisica","inge"]])
 careers = ("inge","fisica")
 week = {1:"LUNES",2:"MARTES",3:"MIERCOLES",4:"JUEVES",5:"VIERNES",6:"SABADO",7:"DOMINGO"}
+
 def add_admins():
+    ''' Agrega administradoreas a la lista, guardando los datos solicitados en una lista anidada'''
     aux_list = []
     name = input("Ingrese su nombre completo: ")
     password = input("Ingrese una contraseña: ")
@@ -199,7 +201,7 @@ def mod_end_date(course):
 def mod_class_times(course):
     global courses
     courses = list(courses)
-    new_class_times = input("Ingrese su nuevo horario: ")
+    new_class_times = class_time()
     courses[course][5] = new_class_times
     courses = tuple(courses)
 def mod_careers(course):
