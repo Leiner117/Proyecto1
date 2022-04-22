@@ -1,7 +1,8 @@
 from datetime import datetime,time
 admins = []
-courses = tuple()
-careers = tuple()
+courses = (["progra",3,9,"2022/02/02","2022/03/03","martes",["inge"]],["progra",3,9,"2022/02/02","2022/03/03","martes",["fisica"]],["mate",3,9,"2022/02/02","2022/03/03","martes",["fisica","inge"]])
+careers = ("inge","fisica")
+week = {1:"LUNES",2:"MARTES",3:"MIERCOLES",4:"JUEVES",5:"VIERNES",6:"SABADO",7:"DOMINGO"}
 def add_admins():
     aux_list = []
     name = input("Ingrese su nombre completo: ")
@@ -32,7 +33,7 @@ def add_courses():
                 end_date = datetime.strptime(end_date, '%Y/%m/%d').strftime('%Y/%m/%d')
             except ValueError:
                 print("\n No ha ingresado una fecha correcta...")
-            class_times = input("Ingrese el horario de clases: ")
+            class_times = class_time()
             careers_belongs = select_career()
             aux_list.append(course)
             aux_list.append(credit)
@@ -48,7 +49,32 @@ def add_courses():
     else:
         print("No se pueden registrar cursos si no existen carreras.")
         
+def class_time():
+    aux_list = []
+    school_days = int(input("Ingrese la cantidad de dias a la semana que se importen lecciones: "))
+    i = 0
+    while i < school_days:
+        aux_dic = {}
+        day = select_day()
+        start_time = input("Ingrese la hora de inicio de la clase: ")
+        start_time = datetime.strptime(start_time, '%H:%M').strftime('%H:%M')
+        end_time = input("Ingrese la hora de finalizacion de la clase: ")
+        end_time = datetime.strptime(end_time, '%H:%M').strftime('%H:%M')
+        aux_dic["dia"] = day
+        aux_dic["inicio"] = start_time
+        aux_dic["final"] = end_time
+        aux_list.append(aux_dic)
+        i = i+1
+    return aux_list
+        
 
+def select_day():
+    a = 0
+    for i in week:
+        a = a+1
+        print(str(a)+"-"+week[i])
+    select = int(input("Ingrese el dia que desea registrar: "))
+    return week[select]
 
 
 def add_careers():
@@ -186,3 +212,4 @@ def mod_careers():
     career = select_position_careers
     new_careers = input("Ingrese el nuevo nombre de la carrera: ")
     careers[career] = new_careers
+    
