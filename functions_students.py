@@ -1,6 +1,7 @@
 import functions_admins
 from datetime import datetime,time
 students = [["leiner","","inge","12345",[{'curso':'mate','estado':'Aprobado'},{'curso':'progra','estado':'En curso'}],[]]]
+
 def register (): 
     auxlist = []
     courses = []
@@ -87,27 +88,62 @@ def add_activities(name):
         course = course_activities(index)
     elif opselect == 2:
         course = "Recreacion"
-    start_date = input("fecha de inicio de la actividad'aaaa/mm/dd': ")
-    end_date = input("fecha de finalización del curso'aaaa/mm/dd': ") 
+    start_date = input("fecha de la actividad'aaaa/mm/dd': ")
+   
             
     try:
-        start_date = datetime.strptime(start_date, '%Y/%m/%d').strftime('%Y/%m/%d')
-        end_date = datetime.strptime(end_date, '%Y/%m/%d').strftime('%Y/%m/%d')
+        start_date = datetime.strptime(start_date, '%Y/%m/%d')
     except ValueError:
         print("\n No ha ingresado una fecha correcta...")
-    
+        add_activities()
     start_time = input("Ingrese la hora de inicio de la actividad: ")
     start_time = datetime.strptime(start_time, '%H:%M').strftime('%H:%M')
     end_time = input("Ingrese la hora de conclusion de la actividad: ")
     end_time = datetime.strptime(end_time, '%H:%M').strftime('%H:%M')
-    activity["descripcion"] = description
-    activity["curso"] = course
-    activity["Fecha inicio"] = start_date
-    activity["Fecha conclusion"] = end_date
-    activity["Hora inicio"] = start_time
-    activity["Hora conclusion"] = end_time
-    students[index][5].append(activity)
+    status = status_activity()
+    result = compare_date(index,start_date,start_time,end_time)
+    if result == True:
+        auxdic = {}
+        auxdic["descripcion"] = description
+        auxdic["curso"] = course
+        auxdic["Fecha"] = start_date
+        auxdic["Hora inicio"] = start_time
+        auxdic["Hora conclusion"] = end_time
+        auxdic["Estado"] = status
+        activity[start_date] = auxdic
+        students[index][5].append(activity)
+        print("La actividad se agrego con exito")
+    else:
+        print("Tienes un choque en tu horario, no puedes agregar esta actividad.")
+    print(students[index][5])
+def status_activity():
     
+    print("Seleccione estado de la actividad: \n1.En curso\n2.Ejecutada ")
+    opselect = int(input("-->"))
+    if opselect == 1:
+        status = "En curso"
+    elif opselect == 2:
+        status = "Ejecutada"
+    else:
+        print("Seleccione solo las opciones indicadas!.")
+        status_activity()
+    return status
+def compare_date(index,date,start_time,end_time):
+    result = True
+    for i in students[index][5]:
+        if date in i:
+            if date == i[date]["Fecha"]:
+                
+                if ((i[date]["Hora inicio"] > end_time or start_time > i[date]["Hora conclusion"])):
+                    result = True# ya existe la fecha y no tiene problemas con los demas horarios
+                else:
+                    result = False#Tiene choque de horarios
+                        
+        else:
+            result = True#No existe la fecha, se agrega
+                    
+    return result
+
 def course_activities(index):
     e = 0
     
@@ -117,6 +153,8 @@ def course_activities(index):
             print(str(e)+"-"+i['curso'])
     course = int(input("Seleccione el curso que desea: "))
     return (course-1)
+add_activities("leiner")
+add_activities("leiner")
 add_activities("leiner")
                 
            
