@@ -29,7 +29,7 @@ def add_courses():
             school_hours = credit*3
             start_date = input("fecha de inicio del curso'aaaa/mm/dd': ")
             end_date = input("fecha de finalización del curso'aaaa/mm/dd': ") 
-            ''' Verificar '''
+            
             try:
                 start_date = datetime.strptime(start_date, '%Y/%m/%d').strftime('%Y/%m/%d')
                 end_date = datetime.strptime(end_date, '%Y/%m/%d').strftime('%Y/%m/%d')
