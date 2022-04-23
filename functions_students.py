@@ -1,8 +1,10 @@
 import functions_admins
-students = [["leiner","","inge","12345",[{'curso':'mate','estado':'En curso'},{'curso':'progra','estado':'En curso'}]]]
+from datetime import datetime,time
+students = [["leiner","","inge","12345",[{'curso':'mate','estado':'Aprobado'},{'curso':'progra','estado':'En curso'}],[]]]
 def register (): 
     auxlist = []
     courses = []
+    activities = []
     name = input("Ingrese su nombre: ")
     email =  input("porfavor introduce tu gmail: ")   
     course = functions_admins.select_position_careers()
@@ -13,6 +15,7 @@ def register ():
     auxlist.append(course)
     auxlist.append(password)
     auxlist.append(courses)
+    auxlist.append(activities)
     students.append(auxlist)
     print("Te has registrado con exito!!! ")
     print(students)
@@ -73,9 +76,48 @@ def select_course_assign(index):
     #course = students[index][4][course-1]
     
     return (course-1)
-mod_course_status("leiner")
 
+def add_activities(name):
+    activity = {}
+    index = index_student(name)
+    description = str(input("Ingrese la descripcion de la actividad: "))
+    print("La actividad esta asociada a un curso?\n1.Si\n2.No")
+    opselect = int(input("-->"))
+    if opselect == 1:
+        course = course_activities(index)
+    elif opselect == 2:
+        course = "Recreacion"
+    start_date = input("fecha de inicio de la actividad'aaaa/mm/dd': ")
+    end_date = input("fecha de finalización del curso'aaaa/mm/dd': ") 
             
+    try:
+        start_date = datetime.strptime(start_date, '%Y/%m/%d').strftime('%Y/%m/%d')
+        end_date = datetime.strptime(end_date, '%Y/%m/%d').strftime('%Y/%m/%d')
+    except ValueError:
+        print("\n No ha ingresado una fecha correcta...")
+    
+    start_time = input("Ingrese la hora de inicio de la actividad: ")
+    start_time = datetime.strptime(start_time, '%H:%M').strftime('%H:%M')
+    end_time = input("Ingrese la hora de conclusion de la actividad: ")
+    end_time = datetime.strptime(end_time, '%H:%M').strftime('%H:%M')
+    activity["descripcion"] = description
+    activity["curso"] = course
+    activity["Fecha inicio"] = start_date
+    activity["Fecha conclusion"] = end_date
+    activity["Hora inicio"] = start_time
+    activity["Hora conclusion"] = end_time
+    students[index][5].append(activity)
+    
+def course_activities(index):
+    e = 0
+    
+    for i in students[index][4]:
+        e = e+1
+        if i['estado'] == "En curso":
+            print(str(e)+"-"+i['curso'])
+    course = int(input("Seleccione el curso que desea: "))
+    return (course-1)
+add_activities("leiner")
                 
            
                     
