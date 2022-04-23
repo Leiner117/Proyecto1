@@ -75,6 +75,9 @@ def select_course_assign(index):
     return (course-1)
 mod_course_status("leiner")
 
+def hola_1():
+    print("hola mundo")
+
             
                 
            
