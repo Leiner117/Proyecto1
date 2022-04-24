@@ -1,7 +1,7 @@
 from datetime import datetime,time
 admins = [["admin","12345",123]]
-courses = (["progra",3,9,"2022/02/02","2022/03/03","martes",["inge"]],["progra",3,9,"2022/02/02","2022/03/03","martes",["fisica"]],["mate",3,9,"2022/02/02","2022/03/03","martes",["fisica","inge"]])
-careers = ("inge","fisica")
+courses = (['mate', 2, 6, '2022/01/01', '2022/04/01', [{'dia': [0], 'inicio': '09:00', 'final': '11:00'}, {'dia': [2], 'inicio': '13:00', 'final': '22:00'}], ['compu', 'fisica']], ['progra', 3, 9, '2022/01/01', '2022/02/01', [{'dia': [0], 'inicio': '13:00', 'final': '16:00'}, {'dia': [4], 'inicio': '13:00', 'final': '16:00'}], ['compu']])
+careers = tuple()
 week = {1:"LUNES",2:"MARTES",3:"MIERCOLES",4:"JUEVES",5:"VIERNES",6:"SABADO",7:"DOMINGO"}
 
 def add_admins():
@@ -47,7 +47,9 @@ def add_courses():
             courses.append(aux_list)
             aux_list.clear
             i = i +1
+            print("El curso se agrego con exito!.")
         courses = tuple(courses)
+        
     else:
         print("No se pueden registrar cursos si no existen carreras.")
         
@@ -76,7 +78,7 @@ def select_day():
         a = a+1
         print(str(a)+"-"+week[i])
     select = int(input("Ingrese el dia que desea registrar: "))
-    return week[select]
+    return [select-1]
 
 
 def add_careers():
@@ -85,6 +87,7 @@ def add_careers():
     career = input("Ingrese el nombre de la carrera que desea agregar: ")
     careers.append(career)
     careers = tuple(careers)
+    print("La carrera se agrego con exito!.")
 
 def select_career():
     global careers
