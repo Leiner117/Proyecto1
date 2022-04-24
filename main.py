@@ -1,3 +1,4 @@
+from pickle import TRUE
 import functions_admins
 import functions_students
 def login():
@@ -71,21 +72,40 @@ def menu_admins(name):
             print(functions_admins.courses)
             print(functions_admins.careers)
             print(functions_admins.admins)
+            print(functions_students.students)
         
 def menu_students(name):
     
     while True:
         print("Menú de estudiantes")
-        print("1.Cambiar Carrera\n2.Matricular cursos\n3.agregar actividades\n4.modificar estado de un curso\n5.Salir")
+        print("1.Cambiar Carrera\n2.Matricular cursos\n3.agregar actividades\n4.modificar estado de un curso\n5.Reportes\n6. Salir")
         opselect = int(input("Ingrese la opcion que desea: "))
         if (opselect == 1):
             functions_students.mod_careers(name)
         elif (opselect == 2):
             functions_students.assign_course(name)
         elif (opselect == 3):
-            print()
+            functions_students.add_activities(name)
         elif (opselect == 4):
             functions_students.mod_course_status(name)
+        elif (opselect == 5):
+            menu_reports(name)
+        elif (opselect == 6):
+            break
+def menu_reports(name):
+    while True:
+        print("Menu Reportes")
+        print("1.Reporte de actividades\n2.Porcentaje de tiempo\n3.Reporte de tiempo\n4.Salir")
+        opselect = int(input("Ingrese la opcion que desea: "))
+        if opselect == 1:
+            print("en proceso")
+        elif opselect == 2:
+            print("en proceso")
+        elif opselect == 3:
+            print("en proceso")
+        elif opselect == 4:
+            break
+
 login()
 
     
