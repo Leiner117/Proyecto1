@@ -45,7 +45,8 @@ def assign_course(name):
     aux_dic["curso"] = functions_admins.courses[select-1][0]
     aux_dic["estado"] = "En curso"
     students[index][4].append(aux_dic)
-    print(students)
+    print("El curso se matriculo con exito!.")
+    
 def index_student(name):
     for i in students:
         if name in i:
@@ -90,7 +91,6 @@ def add_activities(name):
         course = "Recreacion"
     start_date = input("fecha de la actividad'aaaa/mm/dd': ")
    
-            
     try:
         start_date = datetime.strptime(start_date, '%Y/%m/%d')
     except ValueError:
@@ -153,10 +153,7 @@ def course_activities(index):
             print(str(e)+"-"+i['curso'])
     course = int(input("Seleccione el curso que desea: "))
     return (course-1)
-add_activities("leiner")
-add_activities("leiner")
-add_activities("leiner")
-                
+
            
                     
             
