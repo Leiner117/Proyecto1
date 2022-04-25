@@ -1,6 +1,6 @@
 from datetime import datetime,time
 admins = [["admin","12345",123]]
-courses = (['mate', 2, 6, '2022/01/01', '2022/04/01', [{'dia': [0], 'inicio': '09:00', 'final': '11:00'}, {'dia': [2], 'inicio': '13:00', 'final': '22:00'}], ['compu', 'fisica']], ['progra', 3, 9, '2022/01/01', '2022/02/01', [{'dia': [0], 'inicio': '13:00', 'final': '16:00'}, {'dia': [4], 'inicio': '13:00', 'final': '16:00'}], ['compu']])
+courses = tuple()
 careers = tuple()
 week = {1:"LUNES",2:"MARTES",3:"MIERCOLES",4:"JUEVES",5:"VIERNES",6:"SABADO",7:"DOMINGO"}
 
