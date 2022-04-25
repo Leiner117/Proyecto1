@@ -1,6 +1,8 @@
 import functions_admins
+from control_dates import load_dates,shedule
+
 from datetime import datetime,time
-students = [["leiner","","inge","12345",[{'curso':'mate','estado':'Aprobado'},{'curso':'progra','estado':'En curso'}],[]]]
+students = []
 
 def register (): 
     auxlist = []
@@ -45,8 +47,15 @@ def assign_course(name):
     aux_dic["curso"] = functions_admins.courses[select-1][0]
     aux_dic["estado"] = "En curso"
     students[index][4].append(aux_dic)
+    load_shedule(index,functions_admins.courses[select-1][0])
     print("El curso se matriculo con exito!.")
-    
+def load_shedule(index,course):
+    load_dates()
+    copy_shedule = shedule
+    for i in copy_shedule:
+        if course == i:
+            students[index][5].append([copy_shedule[i]])
+load_shedule(0,'mate')
 def index_student(name):
     for i in students:
         if name in i:
@@ -100,7 +109,6 @@ def add_activities(name):
     start_time = datetime.strptime(start_time, '%H:%M').strftime('%H:%M')
     end_time = input("Ingrese la hora de conclusion de la actividad: ")
     end_time = datetime.strptime(end_time, '%H:%M').strftime('%H:%M')
-    status = status_activity()
     result = compare_date(index,start_date,start_time,end_time)
     if result == True:
         auxdic = {}
@@ -109,7 +117,7 @@ def add_activities(name):
         auxdic["Fecha"] = start_date
         auxdic["Hora inicio"] = start_time
         auxdic["Hora conclusion"] = end_time
-        auxdic["Estado"] = status
+        auxdic["Estado"] = "En curso"
         activity[start_date] = auxdic
         students[index][5].append(activity)
         print("La actividad se agrego con exito")
