@@ -61,11 +61,18 @@ def assign_course(name):
             b = b+1
             print(str(b)+"-"+a[0])
     select = int(input("---> "))
-    aux_dic["curso"] = functions_admins.courses[select-1][0]
-    aux_dic["Estado"] = "En curso"
-    students[index][4].append(aux_dic)
-    load_shedule(index,functions_admins.courses[select-1][0])
-    print("El curso se matriculo con exito!.")
+    flag = False
+    for h in students[index][4]:
+        if h["curso"] == functions_admins.courses[select-1][0]:
+            print("El curso ya esta matriculado")
+            flag = True
+            break
+    if flag == False:
+        aux_dic["curso"] = functions_admins.courses[select-1][0]
+        aux_dic["Estado"] = "En curso"
+        students[index][4].append(aux_dic)
+        load_shedule(index,functions_admins.courses[select-1][0])
+        print("El curso se matriculo con exito!.")
     
     
 def load_shedule(index,course):
