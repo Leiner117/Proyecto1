@@ -1,4 +1,5 @@
 from datetime import datetime,time
+import control_dates
 admins = [["admin","12345",123]]
 courses = tuple()
 careers = tuple()
@@ -48,6 +49,8 @@ def add_courses():
             aux_list.clear
             i = i +1
             print("El curso se agrego con exito!.")
+        control_dates.load_dates(courses)
+        print(control_dates.shedule)
         courses = tuple(courses)
         
     else:
