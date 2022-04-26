@@ -68,7 +68,7 @@ def class_time():
     almacena los datos en una lista y la retorna
     '''
     aux_list = []
-    school_days = int(input("Ingrese la cantidad de dias a la semana que se importen lecciones: "))
+    school_days = int(input("Ingrese la cantidad de dias a la semana que se imparten lecciones: "))
     i = 0
     while i < school_days:
         aux_dic = {}
