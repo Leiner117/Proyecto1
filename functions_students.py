@@ -1,11 +1,15 @@
 import functions_admins
 from control_dates import shedule
-
+import os
 from datetime import datetime,time
-students = []
+students = []#Almacena todos los estudiantes
 
 
 def register (): 
+    '''
+    Registra estudiantes en una lista, ingresando los datos solicitados 
+    Se utiliza una lista indexadas para almacenar los estudiantes 
+    '''
     auxlist = []
     courses = []
     activities = {}
@@ -23,13 +27,26 @@ def register ():
     students.append(auxlist)
     print("Te has registrado con exito!!! ")
 def mod_careers(name):
+    '''
+    Recibe como parametro el nombre del estudiante que quiere cambiar la carrera
+    Se llama a una funcion para elegir la nueva carrera
+    Se selecciona la nueva carrrera
+    se realiza el cambio en la lista indexada
+    '''
     new_career = functions_admins.select_position_careers()
     new_career = functions_admins.careers[new_career]
     for i in students:
         if name in i:
             i[2] = new_career
+            break
             
 def assign_course(name):
+    '''
+    Se recorre la lista de estudiantes para obtener el indice del estudiante que desea realizar la matricula
+    se imprime la lista de cursos que estan disponibles en la carrera del estudiante
+    se utiliza un diccionario para almacenar los datos 
+    se llama una funcion para asignar los dias de clases del curso matriculado
+    '''
     career = ""
     aux_dic = {}
     b = 0
@@ -49,18 +66,34 @@ def assign_course(name):
     students[index][4].append(aux_dic)
     load_shedule(index,functions_admins.courses[select-1][0])
     print("El curso se matriculo con exito!.")
-    print(students[index][5])
+    
+    
 def load_shedule(index,course):
+    '''
+    Se genera la lista de fechas que hay clases asignadas en el curso matriculado
+    se le asigna al estudiante en su diccionario de actividades 
+    '''
     copy_shedule = shedule
     for i in copy_shedule:
         if course == i:
             students[index][5] = copy_shedule[i]
+            
 def index_student(name):
+    '''
+    recorre la lista de estudiante para obtener el indice del nombre indicado
+    '''
     for i in students:
         if name in i:
             index = students.index(i)
     return index
+
 def mod_course_status(name):
+    '''
+    Solicita el indice del estudiante
+    Solicita el curso matriculado que desea cambiar el estado
+    realiza el cambio en la lista indexada de estudiantes y en el diccionario de actividades
+    
+    '''
     index = index_student(name)
     status = ""
     course = select_course_assign(index)
@@ -69,11 +102,11 @@ def mod_course_status(name):
     if num_status == 1:
         status = "Aprobado"
         students[index][4][course]["Estado"] = status
-        mod_status(index,status)
+        mod_status(index,status,course)
     elif num_status == 2:
         status = "Reprobado"
         students[index][4][course]["Estado"] = status
-        mod_status(index,status)
+        mod_status(index,status,course)
     elif num_status == 3:
         status = "En curso"
         students[index][4][course]["Estado"] = status
@@ -82,6 +115,9 @@ def mod_course_status(name):
         print("Ingrese solo las opciones indicadas!.")
         
 def mod_status(index,status,course):
+    '''
+    modifica el estado del curso en el diccionario de actividades
+    '''
     course = students[index][4][course-1]
     for i in students[index][5]:
         if students[index][5][i]["curso"] == course:
@@ -89,6 +125,9 @@ def mod_status(index,status,course):
     
     
 def select_course_assign(index):
+    '''
+    Imprime los cursos matriculados de un estudiante
+    '''
     e = 0
     
     for i in students[index][4]:
@@ -100,6 +139,12 @@ def select_course_assign(index):
     return (course-1)
 
 def add_activities(name):
+    '''
+    Se genera el indice del estudiante 
+    Se solicita la informacion de la actividad
+    se compara las fechas y horas para evitar choques con otras actividades
+    se utiliza un diccionario indexado para almacenar las actividades
+    '''
     activity = {}
     index = index_student(name)
     description = str(input("Ingrese la descripcion de la actividad: "))
@@ -134,7 +179,9 @@ def add_activities(name):
     else:
         print("Tienes un choque en tu horario, no puedes agregar esta actividad.")
 def status_activity():
-    
+    '''
+    Selecciona el estado de la actividad 
+    '''
     print("Seleccione estado de la actividad: \n1.En curso\n2.Ejecutada ")
     opselect = int(input("-->"))
     if opselect == 1:
@@ -146,6 +193,14 @@ def status_activity():
         status_activity()
     return status
 def compare_date(index,date,start_time,end_time):
+    '''
+    recorre el diccionario indexado de actividades
+    compara las fechas con la fecha que se quiere agregar
+    compara el estado la actividad almacenada para averiguar si tiene algun choque
+    se comparan las horas de la actividad para evitar choques de horarios
+    se retorna un True o False dependiendo de si hay o no choque
+    
+    '''
     result = True
     for i in students[index][5]:
         if i == date:
@@ -162,6 +217,9 @@ def compare_date(index,date,start_time,end_time):
     return result
 
 def course_activities(index):
+    '''
+    Imprime la lista de cursos matriculados y en curso para asociar alguna actividad
+    '''
     e = 0
     
     for i in students[index][4]:
@@ -170,19 +228,33 @@ def course_activities(index):
             print(str(e)+"-"+i['curso'])
     course = int(input("Seleccione el curso que desea: "))
     return (course-1)
+
 def print_activities(name):
+    '''
+    genera el indice del estudiante 
+    recorre el diccionario indexado de actividades
+    por medio de una caracteristica de las activdades ingresadas por el estudiante se realiza un filtro de las clases
+    se imprime el nombre de la actividad y el estado 
+    
+    '''
     index = index_student(name)
-    students[index][5]
     cont = 0
+    os.system ("cls")
+    print("Actividades: ")
     for i in students[index][5]:
         if "descripcion" in students[index][5][i]:
             cont = cont+1
             print(str(cont)+"-"+str(students[index][5][i]["descripcion"])+" Estado: "+str(students[index][5][i]["Estado"]))
 
 def mod_status_activities(name):
+    '''
+    imprime la lista de actividades
+    selecciona la actividad que desea
+    se genera el indice de la actividad
+    se realiza el cambio en el diccionario de actividades
+    '''
     print("Actividades:")
     index = index_student(name)
-    students[index][5]
     cont = 0
     for i in students[index][5]:
         if "descripcion" in students[index][5][i]:
@@ -194,6 +266,9 @@ def mod_status_activities(name):
     students[index][5][select]["Estado"] = status
     print("El estado de la actividad se cambio exitosamente!.")
 def index_act(select,index):
+    '''
+    Recorre el diccionario de actividades y retorna la clave del valor que se ingreso
+    '''
     for i in students[index][5]:
         if "descripcion" in students[index][5][i]:
             if select == students[index][5][i]["descripcion"]:
