@@ -1,17 +1,23 @@
 
 import functions_admins
 import functions_students
+import reports
+from datetime import datetime
+import os
 def login():
     while True:
         print("1. Login\n2. Registro\n3. salir")
         opselect = int(input("Seleccione la opcion que desea: "))
         if (opselect == 1):
+            os.system ("cls")
             verify_login()
         elif (opselect == 2):
+            os.system ("cls")
             register()
         elif (opselect == 3):
             break
 def verify_login():
+    os.system ("cls")
     name = input("Ingrese su nombre: ")
     password = input("Ingrese su contraseña: ")
     rank = select_rank()
@@ -32,6 +38,7 @@ def verify_login():
         if flag == False:
             print("El usuario o la contraseña son incorrectos")
 def select_rank():
+    os.system ("cls")
     print("Selecciona tu rango:\n1.Administrativo\n2.Estudiante")
     rank = int(input("---> "))
     if rank == 1:
@@ -44,6 +51,7 @@ def select_rank():
     return rank
 
 def register():
+    os.system ("cls")
     print("Desea registrarse como:\n1. Estudiante\n2. Salir")
     opselect = int(input("--->"))
     if (opselect == 1):
@@ -53,7 +61,7 @@ def register():
         login()
     
 def menu_admins(name):
-    
+    os.system ("cls")
     while True:
         print("Menú de administradores")
         print("1. Agregar cursos\n2. Modificar cursos\n3. Agregar carreras\n4. Modificar carreras\n5. Salir")
@@ -75,7 +83,7 @@ def menu_admins(name):
             print(functions_students.students)
         
 def menu_students(name):
-    
+    os.system ("cls")
     while True:
         print("Menú de estudiantes")
         print("1.Cambiar Carrera\n2.Matricular cursos\n3.Agregar actividades\n4.Modificar estado de un curso\n5.Actividades\n6.Modificar actividades\n7.Reportes\n8.Salir")
@@ -97,19 +105,24 @@ def menu_students(name):
         elif (opselect == 8):
             break
 def menu_reports(name):
+    os.system ("cls")
     while True:
         print("Menu Reportes")
         print("1.Reporte de actividades\n2.Porcentaje de tiempo\n3.Reporte de tiempo\n4.Salir")
         opselect = int(input("Ingrese la opcion que desea: "))
         if opselect == 1:
-            print("en proceso")
+            menu_printactivities(name)
         elif opselect == 2:
             print("en proceso")
         elif opselect == 3:
             print("en proceso")
         elif opselect == 4:
             break
-
+def menu_printactivities(name):
+    os.system ("cls")
+    date = input("Ingrese la fecha exacta del dia que desea consultar: ")
+    date = datetime.strptime(date, '%Y/%m/%d')
+    reports.print_activities(name,date)
 login()
 
     
