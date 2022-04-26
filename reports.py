@@ -15,7 +15,7 @@ def print_activities(name,date):
                 print("Hora de inicio:"+functions_students.students[index][5][i]["Hora inicio"])
                 print("Hora de conclusion:"+functions_students.students[index][5][i]["Hora conclusion"])
                 print("Curso asociado:"+functions_students.students[index][5][i]["curso"])
-                print("Total de tiempo:"+(datetime.strptime(functions_students.students[index][5][i]["Hora inicio"], '%H:%M')-datetime.strptime(functions_students.students[index][5][i]["Hora conclusion"], '%H:%M')))
+                print("Total de tiempo:"+str((datetime.strptime(functions_students.students[index][5][i]["Hora inicio"], '%H:%M')-datetime.strptime(functions_students.students[index][5][i]["Hora conclusion"], '%H:%M'))))
                 break
                 
 
