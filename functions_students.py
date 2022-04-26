@@ -1,13 +1,14 @@
 import functions_admins
-from control_dates import load_dates,shedule
+from control_dates import shedule
 
 from datetime import datetime,time
 students = []
 
+
 def register (): 
     auxlist = []
     courses = []
-    activities = []
+    activities = {}
     name = input("Ingrese su nombre: ")
     email =  input("porfavor introduce tu gmail: ")   
     course = functions_admins.select_position_careers()
@@ -45,17 +46,16 @@ def assign_course(name):
             print(str(b)+"-"+a[0])
     select = int(input("---> "))
     aux_dic["curso"] = functions_admins.courses[select-1][0]
-    aux_dic["estado"] = "En curso"
+    aux_dic["Estado"] = "En curso"
     students[index][4].append(aux_dic)
     load_shedule(index,functions_admins.courses[select-1][0])
     print("El curso se matriculo con exito!.")
+    print(students[index][5])
 def load_shedule(index,course):
-    load_dates()
     copy_shedule = shedule
     for i in copy_shedule:
         if course == i:
-            students[index][5].append([copy_shedule[i]])
-load_shedule(0,'mate')
+            students[index][5] = copy_shedule[i]
 def index_student(name):
     for i in students:
         if name in i:
@@ -69,13 +69,25 @@ def mod_course_status(name):
     num_status = int(input("Ingrese el estado del curso: "))
     if num_status == 1:
         status = "Aprobado"
+        students[index][4][course]["Estado"] = status
+        mod_status(index,status)
     elif num_status == 2:
         status = "Reprobado"
+        students[index][4][course]["Estado"] = status
+        mod_status(index,status)
     elif num_status == 3:
         status = "En curso"
+        students[index][4][course]["Estado"] = status
+        mod_status(index,status,course)
     else:
         print("Ingrese solo las opciones indicadas!.")
-    students[index][4][course]["estado"] = status
+        
+def mod_status(index,status,course):
+    course = students[index][4][course-1]
+    for i in students[index][5]:
+        if students[index][5][i]["curso"] == course:
+            students[index][5][i]["Estado"] = status
+    
     
 def select_course_assign(index):
     e = 0
@@ -118,12 +130,10 @@ def add_activities(name):
         auxdic["Hora inicio"] = start_time
         auxdic["Hora conclusion"] = end_time
         auxdic["Estado"] = "En curso"
-        activity[start_date] = auxdic
-        students[index][5].append(activity)
+        students[index][5][start_date] = auxdic
         print("La actividad se agrego con exito")
     else:
         print("Tienes un choque en tu horario, no puedes agregar esta actividad.")
-    print(students[index][5])
 def status_activity():
     
     print("Seleccione estado de la actividad: \n1.En curso\n2.Ejecutada ")
@@ -139,17 +149,17 @@ def status_activity():
 def compare_date(index,date,start_time,end_time):
     result = True
     for i in students[index][5]:
-        if date in i:
-            if date == i[date]["Fecha"]:
-                
-                if ((i[date]["Hora inicio"] > end_time or start_time > i[date]["Hora conclusion"])):
-                    result = True# ya existe la fecha y no tiene problemas con los demas horarios
-                else:
-                    result = False#Tiene choque de horarios
-                        
+        if i == date:
+            if students[index][5][date]["Estado"] == "En curso":
+               if ((students[index][5][date]["Hora inicio"] > end_time or start_time > students[index][5][date]["Hora conclusion"])):
+                   result = True# ya existe la fecha y no tiene problemas con los demas horarios
+               else:
+                   result = False# tiene choque de horario
+                   break
+            else:
+               result = True #la fecha esta registrada pero los actividades ya se ejecutaron
         else:
-            result = True#No existe la fecha, se agrega
-                    
+            result = True # La fecha no esta registrada
     return result
 
 def course_activities(index):
@@ -157,13 +167,44 @@ def course_activities(index):
     
     for i in students[index][4]:
         e = e+1
-        if i['estado'] == "En curso":
+        if i['Estado'] == "En curso":
             print(str(e)+"-"+i['curso'])
     course = int(input("Seleccione el curso que desea: "))
     return (course-1)
+def print_activities(name):
+    index = index_student(name)
+    students[index][5]
+    cont = 0
+    for i in students[index][5]:
+        if "descripcion" in students[index][5][i]:
+            cont = cont+1
+            print(str(cont)+"-"+str(students[index][5][i]["descripcion"])+" Estado: "+str(students[index][5][i]["Estado"]))
 
-           
-                    
+def mod_status_activities(name):
+    print("Actividades:")
+    index = index_student(name)
+    students[index][5]
+    cont = 0
+    for i in students[index][5]:
+        if "descripcion" in students[index][5][i]:
+            cont = cont+1
+            print("->"+str(students[index][5][i]["descripcion"])+" Estado: "+str(students[index][5][i]["Estado"]))
+    opselect = (input("Ingrese la actividad que desea modificar:"))
+    select = index_act(opselect,index)
+    status = status_activity()
+    students[index][5][select]["Estado"] = status
+    print("El estado de la actividad se cambio exitosamente!.")
+def index_act(select,index):
+    for i in students[index][5]:
+        if "descripcion" in students[index][5][i]:
+            if select == students[index][5][i]["descripcion"]:
+                return i 
+            
+
+    
+
+
+
             
             
 
