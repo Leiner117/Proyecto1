@@ -1,10 +1,12 @@
-import functions_admins
+
 from datetime import date, datetime,time
 import calendar
 #schedule = {"curso":[{datetime.datetime(2022, 3, 2, 0, 0): {'curso': 'estudiar','Fecha': datetime.datetime(2022, 3, 2, 0, 0), 'Hora inicio': '09:00', 'Hora conclusion': '11:00'}}],"course:":[]}
-course = functions_admins.courses
+
 shedule = {}
-def load_dates():
+def load_dates(course):
+    global shedule
+    shedule.clear
     for i in course:
         name_course = i[0]
         list_hours = select_hours(i)
@@ -81,18 +83,18 @@ def select_hours(i):
         list_hours.append(aux_dic)
     return list_hours
 def add_dates(list_dates,list_days,name,list_hours):
-    auxlist = []
+    auxdic = {}
     for i in list_dates:
-        auxdic = {}
         for a in i:
             auxdic2 = {}
             date = datetime.strptime(a,'%Y/%m/%d')
             auxdic2["curso"] = name
+            auxdic2["Fecha"] = date
             auxdic2["Hora inicio"] = select_starthour(date,list_hours)
             auxdic2["Hora conclusion"] = select_endhour(date,list_hours)
+            auxdic2["Estado"] = "En curso"
             auxdic[date] = auxdic2
-        auxlist.append(auxdic)
-    shedule[name] = auxlist
+    shedule[name] = auxdic
             
 def select_starthour(date,list_hours):
     day = datetime.weekday(date)
@@ -110,4 +112,3 @@ def select_endhour(date,list_hours):
             end_hour = datetime.strptime(end_hour, '%H:%M').strftime('%H:%M')
             break
     return end_hour
-
