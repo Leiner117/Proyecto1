@@ -22,7 +22,6 @@ def register ():
     auxlist.append(activities)
     students.append(auxlist)
     print("Te has registrado con exito!!! ")
-    print(students)
 def mod_careers(name):
     new_career = functions_admins.select_position_careers()
     new_career = functions_admins.careers[new_career]
