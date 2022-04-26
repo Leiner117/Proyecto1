@@ -4,7 +4,9 @@ import functions_students
 import reports
 from datetime import datetime
 import os
+
 def login():
+    '''Desglosa el Menu principal de login y registro de usuarios(Solo estudiantes)'''
     while True:
         print("1. Login\n2. Registro\n3. salir")
         opselect = int(input("Seleccione la opcion que desea: "))
@@ -15,8 +17,14 @@ def login():
             os.system ("cls")
             register()
         elif (opselect == 3):
-            break
+            quit()
+
 def verify_login():
+    '''
+    Realiza las verificaciones en el login para averiguar que usuario quiere iniciar sesion.
+    Solicita el nombre y la contraseña 
+    Los compara con todas las listas de usuarios de administradores y estudiantes
+    '''
     os.system ("cls")
     name = input("Ingrese su nombre: ")
     password = input("Ingrese su contraseña: ")
@@ -34,10 +42,14 @@ def verify_login():
         for a in functions_students.students:
             if name == a[0] and password == a[3]:
                 menu_students(a[0])
+                flag = True
                 break
         if flag == False:
             print("El usuario o la contraseña son incorrectos")
 def select_rank():
+    '''
+    Solicita el rango del usuario para poder imprimir su menu correspondiente
+    '''
     os.system ("cls")
     print("Selecciona tu rango:\n1.Administrativo\n2.Estudiante")
     rank = int(input("---> "))
@@ -51,6 +63,9 @@ def select_rank():
     return rank
 
 def register():
+    '''
+    Imprime el menu para registrar estudiantes
+    '''
     os.system ("cls")
     print("Desea registrarse como:\n1. Estudiante\n2. Salir")
     opselect = int(input("--->"))
@@ -61,6 +76,9 @@ def register():
         login()
     
 def menu_admins(name):
+    '''
+    Imprime el menu de administrativos 
+    '''
     os.system ("cls")
     while True:
         print("Menú de administradores")
@@ -83,6 +101,9 @@ def menu_admins(name):
             print(functions_students.students)
         
 def menu_students(name):
+    '''
+    Imprime el menu de estudiantes
+    '''
     os.system ("cls")
     while True:
         print("Menú de estudiantes")
@@ -105,6 +126,9 @@ def menu_students(name):
         elif (opselect == 8):
             break
 def menu_reports(name):
+    '''
+    Imprime el sub menu de reportes
+    '''
     os.system ("cls")
     while True:
         print("Menu Reportes")
