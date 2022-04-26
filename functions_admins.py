@@ -50,7 +50,6 @@ def add_courses():
             i = i +1
             print("El curso se agrego con exito!.")
         control_dates.load_dates(courses)
-        print(control_dates.shedule)
         courses = tuple(courses)
         
     else:
