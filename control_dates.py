@@ -5,6 +5,11 @@ import calendar
 
 shedule = {}
 def load_dates(course):
+    '''
+    -Recorre la lista de cursos
+    -agrega los datos necesarios para generar las fechas
+    -llama una funcion al tener todos los datos necesarios
+    '''
     global shedule
     shedule.clear
     for i in course:
@@ -20,23 +25,44 @@ def load_dates(course):
         list_dates = gen_dates(start_date,total_weeks,months,list_days,end_date)
         add_dates(list_dates,list_days,name_course,list_hours)
 def difference_months(start_date,end_date):
+    '''
+    Genera la diferencia de meses entre 2 fechas
+    '''
     difference = end_date.month-start_date.month
     return difference
 def gen_weeks(start_date,difference):
+    '''
+    Se crea un ciclo donde compara un contador con la diferencia de meses entre las fechas
+    se almacenan todos los meses en una lista
+    se generan todas las semanas de un mes indicado utilizando una libreria
+    las semanas se almacenan en un diccionario asignando de clave el mes que pertenecen las semanas
+    este diccionario se almacena en una lista
+    retorna la lista con todas las semanas y la lista con todos los meses
+    '''
     total_weeks = []
     start_month = start_date.month
     i = 0
     months = []
     while difference > i:
         months.append(start_month)
-        auxlist = {}
+        auxdic = {}
         weeks = calendar.monthcalendar(start_date.year,start_month)
-        auxlist[start_month] = weeks
-        total_weeks.append(auxlist)
+        auxdic[start_month] = weeks
+        total_weeks.append(auxdic)
         i = i+1
         start_month = start_month+1
     return total_weeks,months
 def gen_dates(start_date,total_weeks,months,list_days,end_date):
+    '''
+    recorre la lista de semanas
+    recorre la lista de semanas de cada mes 
+    recorre la lista de dias de la semana asignados cuando se creo el curso
+    se hace una comparacion para filtrar los dias de la semana necesarios
+    las semanas con los dias necesarios se almacenan en una lista 
+    se recorre la lista 
+    se asigna el año/mes/dia a la fecha y se convierte en un objeto fecha
+    las fechas se almacenan en una lista y se retornan
+    '''
     dates = []
     auxlist1 = []
     b = 0  
@@ -66,12 +92,20 @@ def gen_dates(start_date,total_weeks,months,list_days,end_date):
     return dates
 
 def select_days(i):
+    '''
+    recorre la lista de dias asignados a los cursos
+    guarda los dias en una lista y la retorna
+    '''
     list_days = []
     for a in i[5]:
         list_days.append(a["dia"])
     return list_days
 def select_hours(i):
+    '''
+    recorre la lista 
+    almacena las horas en un diccionario y el diccionario en una lista y la retorna
     
+    '''
     list_hours = []
     for a in i[5]:
         aux_dic = {}
@@ -83,6 +117,13 @@ def select_hours(i):
         list_hours.append(aux_dic)
     return list_hours
 def add_dates(list_dates,list_days,name,list_hours):
+    '''
+    recorre la lista de fechas
+    convierte cada fecha en un objeto fecha
+    asigna los datos necesarios para almacenar el dia con una actividad
+    almacena todos los datos en un diccionario 
+    el diccionario se almacena en un diccionario indexado
+    '''
     auxdic = {}
     for i in list_dates:
         for a in i:
@@ -97,6 +138,10 @@ def add_dates(list_dates,list_days,name,list_hours):
     shedule[name] = auxdic
             
 def select_starthour(date,list_hours):
+    '''
+    Recorre la lista de horas
+    selecciona la hora correspondiente al dia 
+    '''
     day = datetime.weekday(date)
     for i in list_hours:
         if day in i:
@@ -105,6 +150,10 @@ def select_starthour(date,list_hours):
             break
     return start_hour
 def select_endhour(date,list_hours):
+    '''
+    Recorre la lista de horas
+    selecciona la hora correspondiente al dia 
+    '''
     day = datetime.weekday(date)
     for i in list_hours:
         if day in i:
