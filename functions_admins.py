@@ -18,6 +18,13 @@ def add_admins():
     
 
 def add_courses():
+    '''
+    convierte la tupla de cursos en lista
+    solicita los datos necesarios para crear un curso 
+    se almacenan en una lista indexada
+    se cargan todos los dias correspondientes a la actividades de clases al estudiante
+    
+    '''
     if len(careers) > 0:
         num_courses = int(input("Ingrese la cantidad de cursos que desea agregar: "))
         i = 0
@@ -56,6 +63,10 @@ def add_courses():
         print("No se pueden registrar cursos si no existen carreras.")
         
 def class_time():
+    '''
+    Solicita los dias a la semana que va a recibir clases y las horas correspondientes
+    almacena los datos en una lista y la retorna
+    '''
     aux_list = []
     school_days = int(input("Ingrese la cantidad de dias a la semana que se importen lecciones: "))
     i = 0
@@ -75,6 +86,9 @@ def class_time():
         
 
 def select_day():
+    '''
+    Imprime los dias de la semana 
+    '''
     a = 0
     for i in week:
         a = a+1
@@ -84,6 +98,11 @@ def select_day():
 
 
 def add_careers():
+    '''
+    convierte la tupla de carreras en lista
+    ingresa los datos necesarios 
+    los almacenan en una lista y despues se convierte denuevo en tupla
+    '''
     global careers
     careers = list(careers)
     career = input("Ingrese el nombre de la carrera que desea agregar: ")
@@ -92,6 +111,12 @@ def add_careers():
     print("La carrera se agrego con exito!.")
 
 def select_career():
+    '''
+    Recorre la lista de carreras
+    crea una lista para las carreras asociadas al curso correspondiente
+    retorna la lista con el nombre de las carreras
+    
+    '''
     global careers
     careers_list = []
     b = 0
@@ -117,6 +142,10 @@ def select_career():
 
 
 def select_course():
+    '''
+    Imprime la lista de cursos
+    retorna el indice del curso seleccionado
+    '''
     global courses
     
     print("Seleccione el curso que desea:")
@@ -133,6 +162,10 @@ def select_course():
     else:
         return (select-1)
 def select_position_careers():
+    '''
+    imprime la lista de carreras
+    retorna el indice de la carreras seleccionada
+    '''
     global careers
     print("Seleccione la carrera que desea que desea:")
     a = 1
@@ -147,6 +180,9 @@ def select_position_careers():
         return (select-1)
 
 def mod_courses():
+    '''
+    Imprime el menu para la modificacion de datos de los cursos
+    '''
     course = select_course()
     while True:
         print("1. Nombre de curso\n2. creditos\n3. fecha de inicio\n4. fecha de finalizacion\n5. Horario\n6.carreras asociadas\n7.Salir")
@@ -167,12 +203,18 @@ def mod_courses():
         elif opselect == 7:
             break
 def mod_nameCourse(course):
+    '''
+    Modifica el nombre del curso
+    '''
     global courses
     new_name = input("Ingrese el nuevo nombre del curso: ")
     courses = list(courses)
     courses[course][0] = new_name
     courses = tuple(courses)
 def mod_credits(course):
+    '''
+    modifica el numero de creditos del curso
+    '''
     global courses
     courses = list(courses)
     new_credits = int(input("Ingrese la nueva cantidad de creditos: "))
@@ -181,6 +223,9 @@ def mod_credits(course):
     courses[course][2] = new_school_hours
     courses = tuple(courses)
 def mod_start_date(course):
+    '''
+    modifica la fecha de inicio del curso
+    '''
     global courses
     courses = list(courses)
     start_date = input("fecha de inicio del curso'aaaa/mm/dd': ")
@@ -193,6 +238,9 @@ def mod_start_date(course):
         mod_courses()
     
 def mod_end_date(course):
+    '''
+    modifica la fecha de conclusion del curso
+    '''
     global courses
     courses = list(courses)
     end_date = input("fecha de finalización del curso'aaaa/mm/dd': ") 
@@ -204,18 +252,27 @@ def mod_end_date(course):
     courses[course][4] = end_date
     courses = tuple(courses)
 def mod_class_times(course):
+    '''
+    modifica las horas de clase del curso
+    '''
     global courses
     courses = list(courses)
     new_class_times = class_time()
     courses[course][5] = new_class_times
     courses = tuple(courses)
 def mod_careers(course):
+    '''
+    modifica las carreras asociadas al curso
+    '''
     global courses
     courses = list(courses)
     new_careers = select_career()
     courses[course][6] = new_careers
     courses = tuple(courses)
 def mod_careers():
+    '''
+    modifica el nombre de la carrera seleccionada
+    '''
     career = select_position_careers
     new_careers = input("Ingrese el nuevo nombre de la carrera: ")
     careers[career] = new_careers
